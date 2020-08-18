@@ -8,7 +8,7 @@ class Profile(models.Model):
     profile_pic = models.ImageField(upload_to='profile/')
     bio = models.TextField(max_length=500, blank=True)
     post = models.ForeignKey('Project', on_delete=models.CASCADE)
-    contact = models.ForeignKey('Contact', on_delete=CASCADE)
+    contact = models.ForeignKey('Contact', on_delete=models.CASCADE)
 
 class Project(models.Model):
     author = models.ForeignKey(User, related_name="projects", on_delete=models.CASCADE)
