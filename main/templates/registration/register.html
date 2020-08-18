@@ -1,0 +1,11 @@
+<form  method='post' action="{% url 'register' %}">
+    <h1>Create your account</h1>
+    {% csrf_token %}
+    {% if form.errors %}
+        <p>There are errors in the form!</p>
+    {% endif %}
+
+    {{form}}
+
+    <input type="submit" value="Register">
+</form>

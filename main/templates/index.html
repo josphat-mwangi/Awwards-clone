@@ -1,0 +1,7 @@
+<h1>hello world</h1>
+
+{% if user.is_authenticated %}
+    <h2>Your name is: {{user.username}}</h2>
+{% else %}
+    <h2>Your are not logged in.</h2>
+{% endif %}
