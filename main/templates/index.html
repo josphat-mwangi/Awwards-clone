@@ -4,26 +4,50 @@
 {% block content%}
 <br><br><br>
 {{block.super}}
+
 <div class="container">
     <div class="row">
-        <div class="col"></div>
-        <div class="col-md-11">
-            {%for photo in photos%}
-            <div class="card" style="width: 100%;">
-                {{photo.image.url}}
-                <img src="{{photo.image.url}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h1>{{photo.title}}</h1>
-                    <p class="card-text">{{photo.description}}</p>
-                    <P>{{photo.link}}</P>
-                    <p>{{photo.pub_date}}</p>
-                    <a href=""> view comments</a>
+        <!-- Card Regular -->
+        {%for photo in photos%}
+        <div class="col-md-6">
+            <div>
+                <div class="card card-cascade">
+                    <!-- Card image -->
+                    <div class="view view-cascade overlay">
+                        <img class="card-img-top" src="{{photo.image.url}}" alt="Card image cap" width="100%" height="100%">
+                        <a>
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+        
+                    <!-- Card content -->
+                    <div class="card-body card-body-cascade text-center">
+        
+                        <!-- Title -->
+                        <h4 class="card-title"><strong>{{photo.title}}</strong></h4>
+                        <!-- Subtitle -->
+                        <h6 class="font-weight-bold indigo-text py-2"><a class="btn btn-pink" href="{{photo.link}}"><i
+                                    class="fa fa-clone left"></i> View project</a></h6>
+                        <!-- Text -->
+                        <p class="card-text">{{photo.description}}</p>
+                        <!-- Facebook -->
+                        <a type="button" class="btn-floating btn-small btn-fb"><i class="fa fa-facebook-f"></i></a>
+                        <!-- Twitter -->
+                        <a type="button" class="btn-floating btn-small btn-tw"><i class="fa fa-twitter"></i></a>
+                        <!-- Google + -->
+                        <a type="button" class="btn-floating btn-small btn-dribbble"><i class="fa fa-dribbble"></i></a>
+        
+        
+                    </div>
+                    <div class="card-footer text-muted text-center">
+                        {{photo.pub_date}}
+                    </div>
                 </div>
             </div>
-            {%endfor%}
+            <!-- Card Regular -->
         </div>
-        <div class="col"></div>
+        {% endfor %}
     </div>
 </div>
-
 {%endblock%}
+
