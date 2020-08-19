@@ -1,7 +1,29 @@
-<h1>hello world</h1>
+{%extends 'base.html'%}
+{% load bootstrap4 %}
+{% load static %}
+{% block content%}
+<br><br><br>
+{{block.super}}
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-md-11">
+            {%for photo in photos%}
+            <div class="card" style="width: 100%;">
+                {{photo.image.url}}
+                <img src="{{photo.image.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h1>{{photo.title}}</h1>
+                    <p class="card-text">{{photo.description}}</p>
+                    <P>{{photo.link}}</P>
+                    <p>{{photo.pub_date}}</p>
+                    <a href=""> view comments</a>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
 
-{% if user.is_authenticated %}
-    <h2>Your name is: {{user.username}}</h2>
-{% else %}
-    <h2>Your are not logged in.</h2>
-{% endif %}
+{%endblock%}
