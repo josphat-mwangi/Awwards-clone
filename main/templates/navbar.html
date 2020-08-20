@@ -49,11 +49,15 @@
                     </a>
                 </li>
                 {%endif%}
-                <form class="form-inline" action="">
-                    <div class="md-form my-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
-                            name="search">
+                <form class="navbar-form" role="search" action="{% url 'search_results' %}">
+
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search Project" name="project">
+                        <div class="input-group-btn">
+                        <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
                     </div>
+
                 </form>
             </ul>
         </div>
