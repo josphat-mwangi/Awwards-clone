@@ -35,7 +35,9 @@
     </div>
 
     {% block scripts %}
-    <script src="{% static 'scripts.js'%}"></script>
+    
+    {{block.super}}
+    <script type="text/javascript" src="{%static 'js/scripts.js'%}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     {% bootstrap_javascript %}
     {% endblock %}
