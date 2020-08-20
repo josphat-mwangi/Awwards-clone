@@ -2,6 +2,13 @@ from rest_framework import serializers
 from .models import Project, Rating
 from django.contrib.auth.models import User
 
+
+class RatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rating
+        fields = ['id', 'design', 'usability',
+                  'content', 'creativity']
+
 class ProjectSerializer(serializers.ModelSerializer):
     rating = RatingSerializer(many=True, read_only=True)
     class Meta :
@@ -10,12 +17,9 @@ class ProjectSerializer(serializers.ModelSerializer):
                   "image", "link",'rating' ]
 
 class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id','username','email']
-
-class RatingSerializer(serializers.ModelSerializer):
     projects = ProjectSerializer(many=True, read_only=True)
     class Meta:
-        model = Rating
-        fields = ['id','design','usability','content','creativity','projects']
+        model = User
+        fields = ['id', 'username', 'email', 'projects']
+
+

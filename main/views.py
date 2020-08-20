@@ -31,7 +31,8 @@ def register(response):
         form = RegisterForm()
     return render(response,'registration/register.html',{'form':form})
 
-@login_required
+
+@login_required(login_url='/accounts/login/')
 def profile(request,id):
     current_user = request.user
     profile = Profile.get_profile(current_user.id)
@@ -61,6 +62,7 @@ def profile(request,id):
     return render(request, 'profile.html', context)
 
 
+@login_required(login_url='/accounts/login/')
 class PostListView(ListView):
     model = Project
     template_name = 'post.html'  # <app>/<model>_<viewtype>.html
@@ -130,6 +132,7 @@ def search_results(request):
         return render(request, 'search.html', {"message": message})
 
 
+@login_required(login_url='/accounts/login/')
 def site(request, site_id):
     current_user = request.user
     profile = Profile.objects.filter(user=current_user).first()
