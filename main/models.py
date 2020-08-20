@@ -35,16 +35,29 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
+    
+    @classmethod
+    def search_by_title(cls,search_term):
+        project = cls.objects.filter(title__icontains=search_term)
+        return project
 
     def __str__(self):
         return self.title
 
-
-
 class Rating(models.Model):
+    post = models.ForeignKey('Project', on_delete=models.CASCADE)
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    overall_score = models.IntegerField(blank=True,default=0)
     design = models.IntegerField(choices=list(zip(range(0,11), range(0,11))), default=0)
     usability = models.IntegerField(choices=list(zip(range(0,11), range(0,11))), default=0)
     content = models.IntegerField(choices=list(zip(range(0,11), range(0,11))), default=0)
+    creativity = models.IntegerField(choices=list(zip(range(0, 11), range(0, 11))), default=0)
+
+    def save_rating(self):
+        self.save()
+
+    def __str__(self):
+        return self.title
 
 class Contact(models.Model):
     username = models.CharField(max_length=200)
