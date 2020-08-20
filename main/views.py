@@ -33,34 +33,33 @@ def register(response):
 
 
 @login_required(login_url='/accounts/login/')
-def profile(request,id):
+def profile(request, id):
     current_user = request.user
     profile = Profile.get_profile(current_user.id)
     if request.method == 'POST':
-        
-        p_form = ProfileUpdateForm(request.POST,request.FILES)
-
-        if  p_form.is_valid():
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES)
+        if u_form.is_valid() and p_form.is_valid():
             profile = p_form.save(commit=False)
             profile.user = current_user
             p_form.save()
+            u_form.save()
             messages.success(request, f'Your account has been updated!')
         return HttpResponseRedirect(reverse('profile', args=[str(id)]))
 
     else:
-        
+
         p_form = ProfileUpdateForm(instance=request.user)
 
     context = {
         
         'p_form': p_form,
-        'profile':profile,
+        'profile': profile,
         'current_user': current_user
-        
+
     }
 
     return render(request, 'profile.html', context)
-
 
 @login_required(login_url='/accounts/login/')
 class PostListView(ListView):

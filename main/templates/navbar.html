@@ -1,6 +1,6 @@
 <nav class="mb-1 navbar navbar-expand-lg navbar-dark z-depth-1 navfont z-depth-1 fixed-top bg-dark">
     <div class="container mid">
-        <a class="navbar-brand big-brand" href="">AWARDS</a>
+        <a class="navbar-brand big-brand" href="">AWARDS </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
             aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -36,7 +36,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-default"
                         aria-labelledby="navbarDropdownMenuLink-333">
-                        <a class="dropdown-item" href="">Profile</a>
+                        <a class="dropdown-item" href="{% url 'profile' request.user.id%}">Profile</a>
                         <a class="dropdown-item" href="{%  url 'post-create'%}">New Post</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/logout">Logout</a>
@@ -59,6 +59,7 @@
                     </div>
 
                 </form>
+                
             </ul>
         </div>
     </div>
