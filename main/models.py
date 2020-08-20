@@ -40,6 +40,16 @@ class Project(models.Model):
     def search_by_title(cls,search_term):
         project = cls.objects.filter(title__icontains=search_term)
         return project
+    
+    @classmethod
+    def all_posts(cls):
+        return cls.objects.all()
+
+    def save_post(self):
+        self.save()
+
+    def delete_post(self):
+        self.delete()
 
     def __str__(self):
         return self.title
