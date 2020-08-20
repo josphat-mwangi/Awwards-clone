@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class="carousel-inner text-center">
+    <div class="landingpage">
+        <img src="{{post.image.url}}" style="width:100%;
+        height:700px;
+        position: relative;
+        text-align: center;">
+
+        <div class="header">
+            <h1>{{post.title}}</h1>
+        </div>
+        <div class="text-center">
+            <p>{{post.description}}</p>
+        </div>
+        <div class="page-body">
+            <strong>
+                <p>BY: <span style="color:#49c5b6;text-transform:uppercase;">{{ user.username }}</span></p>
+            </strong>
+        </div>
+
+        <div class="middle">
+
+            <div class="circle" id="circle-a">
+                <strong></strong>
+                <p class="rating">DESIGN</p>
+            </div>
+            <div class="circle" id="circle-b">
+                <strong></strong>
+                <p class="rating">USABILITY</p>
+            </div>
+            <div class="circle" id="circle-c">
+                <strong></strong>
+                <p class="rating">CREATIVITY</p>
+            </div>
+            <div class="circle" id="circle-d">
+                <strong></strong>
+                <p class="rating">CONTENT</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="spacing"></div>
+
+
+<hr>
+
+</div>
+
+{% if ratings %}
+<h3 class="text-center">Votes</h3>
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Design</th>
+            <th scope="col">Usability</th>
+
+            <th scope="col">Creativity</th>
+            <th scope="col">Content</th>
+            <th scope="col">Overall Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rating in ratings%}
+        <tr>
+            <td>{{rating.user.username}}</td>
+            <td>{{rating.design}}</td>
+            <td>{{rating.usability}}</td>
+            <td>{{rating.creativity}}</td>
+            <td>{{rating.content}}</td>
+            <td>{{rating.overall_score}}</td>
+        </tr>
+
+        {% endfor%}
+    </tbody>
+</table>
+{%else %}
+<h3 class="text-center">No votes made for this site yet</h3>
+<hr>
+{% endif %}
+
+<form action="/site/{{post.id}}" method="post" enctype="multipart/form-data" id="votes-form">
+    {%csrf_token%}
+    {{ form|crispy }}
+    <div class="text-center">
+        <input id="votes-input" type="submit" class="btn btn-success btn-lg" value="Post">
+    </div>
+</form>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-circle-progress/1.1.3/circle-progress.min.js"></script>
+
+
+<script>
+    var progressBarOptions = {
+        startAngle: -1.55,
+        size: 100,
+        value: {{ post.design }},
+    fill: {
+        color: 'Chocolate'
+    }
+}
+    $('.circle').circleProgress(progressBarOptions).on('circle-animation-progress', function (event, progress, stepValue) {
+        $(this).find('strong').text(String((stepValue / 10).toFixed(2)));
+    });
+    $('#circle-b').circleProgress({
+        value: {{ post.usability }},
+        fill: {
+        color: 'Khaki'
+    }
+});
+    $('#circle-c').circleProgress({
+        value: {{ post.creativity }},
+        fill: {
+        color: 'DarkTurquoise'
+    }
+});
+    $('#circle-d').circleProgress({
+        value: {{ post.content }},
+        fill: {
+        color: 'SteelBlue'
+    }
+});
+</script>
+
+{% endblock %}
